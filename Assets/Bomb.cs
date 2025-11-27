@@ -9,6 +9,9 @@ public class Bomb : MonoBehaviour
 {
     [HideInInspector] public float fallSpeed = 4f;
 
+    [Header("Spin")]
+    public float rotateSpeed = 360f; // độ/giây, 360 = quay 1 vòng/giây
+
     [Header("Explosion")]
     public float explodeRadius = 1.2f;
     public int penaltyPoints = 5;
@@ -23,11 +26,20 @@ public class Bomb : MonoBehaviour
 
     void Update()
     {
-        // rơi xuống
+        // ** 14. DEFAULT BOMB SPIN SEGMENT
         transform.Translate(Vector2.down * fallSpeed * Time.deltaTime, Space.World);
 
         if (transform.position.y < killY)
             BombPool.Instance.ReturnBomb(gameObject);
+        // ** END SEGMENT
+
+        // ** 14. ENHANCED BOMB SPIN SEGMENT
+        // transform.Translate(Vector2.down * fallSpeed * Time.deltaTime, Space.World);
+        // transform.Rotate(0f, 0f, rotateSpeed * Time.deltaTime, Space.Self);
+
+        // if (transform.position.y < killY)
+        //     BombPool.Instance.ReturnBomb(gameObject);
+        // ** END SEGMENT
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -113,16 +125,19 @@ public class Bomb : MonoBehaviour
     System.Collections.IEnumerator ReleaseFxWhenDone(AsyncOperationHandle<GameObject> h)
     {
         yield return h;
+        
         if (h.Status == AsyncOperationStatus.Succeeded)
         {
             var go = h.Result;
             var ps = go.GetComponent<ParticleSystem>();
             float life = 0.5f;
+
             if (ps)
             {
                 var main = ps.main;
                 life = main.duration + main.startLifetime.constantMax + 0.25f;
             }
+
             yield return new WaitForSeconds(life);
             Addressables.ReleaseInstance(go); // tự hủy & giải phóng
         }

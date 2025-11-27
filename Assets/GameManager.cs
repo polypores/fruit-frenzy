@@ -43,4 +43,13 @@ public class ScoreManager : MonoBehaviour
             scoreText.text = "Score: " + score.ToString();
         }
     }
+    // !! THOÁT GAME MAIN MENU FUNCTION
+    public void OnExitClicked()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
 }

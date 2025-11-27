@@ -1,15 +1,17 @@
 using UnityEngine;
 
+// !! AudioManager Object
 public class AudioManagerScript : MonoBehaviour
 {
     public static AudioManagerScript instance;
 
     public AudioSource bgmSource;
 
-    // ** ENHANCED MUSIC VOLUME SEGMENT
+    // ** 01. ENHANCED MUSIC VOLUME SEGMENT
     // private float musicVolume;
     // ** END SEGMENT
-    // ** DEFAULT MUSIC SEGMENT
+
+    // ** 01. DEFAULT MUSIC SEGMENT
     private float musicVolume = 0.5f;
     // ** END SEGMENT
 
@@ -20,7 +22,8 @@ public class AudioManagerScript : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
-            // ** ENHANCED MUSIC VOLUME: Load musicVolume vào game khi Awake() để lát sau Start() tại PauseMenu có thể lấy đúng giá trị
+
+            // ** 01. ENHANCED MUSIC SEGMENT: Load musicVolume vào game khi Awake() để lát sau Start() tại PauseMenu có thể lấy đúng giá trị
             // musicVolume = SaveSystem.LoadVolume();
             // instance.SetMusicVolume(musicVolume);
             // ** END SEGMENT
@@ -34,20 +37,23 @@ public class AudioManagerScript : MonoBehaviour
     // ! START() AUDIO MANAGER FUNCTION
     void Start()
     {
-        // ** ENDHANCED MUSIC VOLUME SEGMENT
-        musicVolume = SaveSystem.LoadVolume();
+
+        // ** 01. ENDHANCED MUSIC VOLUME SEGMENT
+        // musicVolume = SaveSystem.LoadVolume();
         // ** END SEGMENT
+
         if (bgmSource != null && !bgmSource.isPlaying)
         {
             bgmSource.loop = true;
 
-            //  ** DEFAULT MUSIC SEGMENT
+            // ** 01. DEFAULT MUSIC SEGMENT
             bgmSource.volume = musicVolume;
             // ** END SEGMENT
 
-            // ** ENHANCED MUSIC SEGMENT
+            // ** 01. ENHANCED MUSIC SEGMENT
             // bgmSource.volume = SaveSystem.LoadVolume();
             // ** END SEGMENT
+
             bgmSource.Play();
         }
     }
@@ -58,9 +64,10 @@ public class AudioManagerScript : MonoBehaviour
         if (bgmSource != null)
         {
             bgmSource.volume = musicVolume;
-            // ** ENHANCED MUSIC SEGMENT
+
+            // ** 01. ENHANCED MUSIC SEGMENT
             // LƯU LẠI GIÁ TRỊ VÀO PLAYERPREFS
-            PlayerPrefs.SetFloat("Volume", Mathf.Max(0, musicVolume));
+            // PlayerPrefs.SetFloat("Volume", Mathf.Max(0, musicVolume));
             // PlayerPrefs.Save();
             // ** END SEGMENT
         }
@@ -69,5 +76,17 @@ public class AudioManagerScript : MonoBehaviour
     public float GetMusicVolume()
     {
         return musicVolume;
+    }
+    // !! 02. DỪNG NHẠC
+    public void PauseMusic()
+    {
+        bgmSource.Pause();
+    }
+    // !! 02. TIẾP TỤC NHẠC
+    public void ResumeMusic()
+    {
+        bgmSource.loop = true;
+        bgmSource.volume = musicVolume;
+        bgmSource.Play();
     }
 }

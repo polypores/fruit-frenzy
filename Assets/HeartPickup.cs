@@ -17,6 +17,16 @@ public class HeartPickup : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             PlayerLives.Instance?.Heal(1);                   // +1 mạng
+
+            // ** 16. TIM BAY LÊN THANH MẠNG UI SEGMENT
+            // if (HeartFlyUIManager.Instance != null)
+            // {
+            //     HeartFlyUIManager
+            //         .Instance
+            //             .PlayHeartFly(other.transform.position);
+            // }
+            // ** END SEGMENT
+
             HeartPool.Instance.ReturnHeart(gameObject);
         }
         else if (other.CompareTag("KillZone"))
