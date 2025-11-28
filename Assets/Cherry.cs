@@ -3,15 +3,16 @@ using UnityEngine;
 public class Cherry : MonoBehaviour
 {
     // tốc độ rơi của quả cherry
-    [HideInInspector] public float fallSpeed;
+    [SerializeField] public float fallSpeed;
     [SerializeField] float killY = -6f;
+    [SerializeField] float speedMultiplier = 6.0f;
     // !! UPDATE() CHERRY FUNCTION
     void Update()
     {
         // cho vật thể rơi xuống
         transform.Translate
         (
-            Vector2.down * fallSpeed * Time.deltaTime, 
+            Vector2.down * fallSpeed * Time.deltaTime * speedMultiplier, 
             Space.World
         );
         // đoạn if này có thể k cần cũng đc, vì đã có OnTriggerEnter2D với KillZone rồi
@@ -36,6 +37,14 @@ public class Cherry : MonoBehaviour
             //         other.transform.position,     // vị trí player
             //         Color.green                   // màu text
             //     );
+            // }
+            // ** END SEGMENT
+
+            // ** 17. PHÁT TIẾNG TING TING KHI NHẶT CHERRY SEGMENT
+            // phát âm thanh nhặt cherry
+            // if (PlayerControllerScript.instance != null)
+            // {
+            //     PlayerControllerScript.instance.PlayCherryPickupSfx();
             // }
             // ** END SEGMENT
 

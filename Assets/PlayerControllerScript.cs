@@ -14,7 +14,10 @@ public class PlayerControllerScript : MonoBehaviour
 
     private Animator anim;
     // ** 04. SFX VOLUME SEGMENT
+    // Làm cho tiếng SFX lớn hơn tiếng nhạc?
     private AudioSource playerSfxAudioSource;
+
+    public AudioClip cherryPickupClip;
 
     // !! ĐẶT GIÁ TRỊ volume hiệu ứng ng chơi
     public void SetSFXVolume(float volume)
@@ -48,7 +51,7 @@ public class PlayerControllerScript : MonoBehaviour
     void Start()
     {
         // ** 04. SFX VOLUME SEGMENT
-        // khởi tạo giá trị cho SFX volume
+        // Làm cho tiếng SFX lớn hơn tiếng nhạc?
         if (playerSfxAudioSource != null)
         {
             playerSfxAudioSource.volume = 0.5f;
@@ -115,6 +118,14 @@ public class PlayerControllerScript : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
+        }
+    }
+
+    public void PlayCherryPickupSfx()
+    {
+        if (playerSfxAudioSource != null && cherryPickupClip != null)
+        {
+            playerSfxAudioSource.PlayOneShot(cherryPickupClip);
         }
     }
 }

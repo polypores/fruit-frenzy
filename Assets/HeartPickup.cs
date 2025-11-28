@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class HeartPickup : MonoBehaviour
 {
-    [HideInInspector] public float fallSpeed;
+    [SerializeField] public float fallSpeed;
     [SerializeField] float killY = -6f;
 
     void Update()

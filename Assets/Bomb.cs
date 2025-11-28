@@ -7,7 +7,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class Bomb : MonoBehaviour
 {
-    [HideInInspector] public float fallSpeed = 4f;
+    [SerializeField] public float fallSpeed = 4f;
 
     [Header("Spin")]
     public float rotateSpeed = 360f; // độ/giây, 360 = quay 1 vòng/giây
@@ -33,7 +33,8 @@ public class Bomb : MonoBehaviour
             BombPool.Instance.ReturnBomb(gameObject);
         // ** END SEGMENT
 
-        // ** 14. ENHANCED BOMB SPIN SEGMENT
+        // ** 15. ENHANCED BOMB SPIN SEGMENT
+        // BOM XOAY KHI RƠI
         // transform.Translate(Vector2.down * fallSpeed * Time.deltaTime, Space.World);
         // transform.Rotate(0f, 0f, rotateSpeed * Time.deltaTime, Space.Self);
 
@@ -78,16 +79,28 @@ public class Bomb : MonoBehaviour
         //     var fx = Instantiate(explodeFx, transform.position, Quaternion.identity);
         // }
 
-        if (explodeFxRef != null && explodeFxRef.RuntimeKeyIsValid())
+        // ** code cũ sử dụng Addressables
+        // if (explodeFxRef != null && explodeFxRef.RuntimeKeyIsValid())
+        // {
+        //     var handle = Addressables.InstantiateAsync(
+        //         explodeFxRef, 
+        //         transform.position, 
+        //         Quaternion.identity
+        //     );
+        //     StartCoroutine(ReleaseFxWhenDone(handle));   
+        //     // đợi FX chạy xong rồi release instance
+        // }
+
+        // ** code mới dùng prefab
+        if (BombPool.Instance != null && BombPool.Instance.defaultExplodeFx != null)
         {
-            var handle = Addressables.InstantiateAsync(
-                explodeFxRef, 
-                transform.position, 
+            Instantiate(
+                BombPool.Instance.defaultExplodeFx,
+                transform.position,
                 Quaternion.identity
             );
-            StartCoroutine(ReleaseFxWhenDone(handle));   
-            // đợi FX chạy xong rồi release instance
         }
+
 
         // Quét bán kính nổ – nếu Player trong vùng → trừ điểm
         bool damaged = false;

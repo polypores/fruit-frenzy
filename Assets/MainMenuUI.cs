@@ -6,6 +6,13 @@ using TMPro;
 // !! MainMenuManager Object
 public class MainMenuUI : MonoBehaviour
 {
+    // ** 25. Giữ lại vị trí trái cây qua các màn chơi SEGMENT
+    public static MainMenuUI Instance;
+
+    [Header("Root")]
+    public GameObject mainMenuRoot;
+
+    // ** END SEGMENT
 
     [Header("Wiring")]
     public GameObject resumeButton;
@@ -19,8 +26,15 @@ public class MainMenuUI : MonoBehaviour
     public TMP_Text gameOverText;        // "Your score: 123"
 
     // ** 03. MAIN MENU BGM MUSIC SEGMENT
+    // Thêm nhạc nền vào Main Menu?
     // public AudioSource mainMenuBGM;
     // ** END SEGMENT
+
+    void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else if (Instance != this) Destroy(gameObject);
+    }
 
     void Start()
     {
@@ -29,6 +43,7 @@ public class MainMenuUI : MonoBehaviour
         // ** END SEGMENT
 
         // ** 03. MAIN MENU BGM MUSIC SEGMENT
+        // Thêm nhạc nền vào Main Menu?
         // if (mainMenuBGM != null && !mainMenuBGM.isPlaying)
         // {
         //     mainMenuBGM.loop = true;
@@ -52,6 +67,9 @@ public class MainMenuUI : MonoBehaviour
         }
         RebuildLayoutNow();
 
+        // ** 25. Giữ lại vị trí trái cây qua các màn chơi SEGMENT
+        Time.timeScale = 0f;
+        // ** END SEGMENT
     }
     void RebuildLayoutNow()
     {
@@ -62,19 +80,28 @@ public class MainMenuUI : MonoBehaviour
     public void OnStartClicked()
     {
         SaveSystem.NewGame();
+        // ** 24. TẠO LOADING SCENE GIỮA SCENE (DEFAULT)
         SceneManager.LoadScene
         (
             gameplaySceneName, 
             LoadSceneMode.Single
-        );
+        ); // ** 25. DEFAULT LOAD SCENE
+        // StartCoroutine(EnterGameplay()); // ** 25. ENHANCED LOAD SCENE
+        // ** END SEGMENT
+
+        // ** 24. TẠO LOADING SCENE GIỮA SCENE (ENHANCED)
+        // SceneLoader.LoadSceneWithLoading(gameplaySceneName);
+        // ** END SEGMENT
 
         // ** 02. ENHANCED PAUSE MUSIC SEGMENT
+        // TIEP TỤC NHẠC KHI BẮT ĐẦU CHƠI
         // AudioManagerScript
         //     .instance
         //         .ResumeMusic();
         // ** END SEGMENT
 
         // ** 03. MAIN MENU BGM MUSIC SEGMENT
+        // Thêm nhạc nền vào Main Menu?
         // mainMenuBGM.Pause();
         // ** END SEGMENT
 
@@ -82,7 +109,14 @@ public class MainMenuUI : MonoBehaviour
     // !! NHẤN NÚT RESUME MAIN MENU
     public void OnResumeClicked()
     {
-        SceneManager.LoadScene(gameplaySceneName);
+        // ** 24. TẠO LOADING SCENE GIỮA SCENE (DEFAULT)
+        SceneManager.LoadScene(gameplaySceneName); // ** 25. DEFAULT LOAD SCENE
+        // StartCoroutine(EnterGameplay()); // ** 25. ENHANCED LOAD SCENE
+        // ** END SEGMENT
+
+        // ** 24. TẠO LOADING SCENE GIỮA SCENE (ENHANCED)
+        // SceneLoader.LoadSceneWithLoading(gameplaySceneName);
+        // ** END SEGMENT
 
         // ** 02. ENHANCED PAUSE MUSIC SEGMENT
         // AudioManagerScript
@@ -91,6 +125,7 @@ public class MainMenuUI : MonoBehaviour
         // ** END SEGMENT
 
         // ** 03. MAIN MENU BGM MUSIC SEGMENT
+        // Thêm nhạc nền vào Main Menu?
         // mainMenuBGM.Pause();
         // ** END SEGMENT
 
@@ -107,6 +142,48 @@ public class MainMenuUI : MonoBehaviour
         if (gameOverPanel) 
             gameOverPanel.SetActive(false);
     }
+    // !! ENTER GAMEPLAY COROUTINE
+    System.Collections.IEnumerator EnterGameplay()
+    {
+        // Ẩn menu
+        if (mainMenuRoot) mainMenuRoot.SetActive(false);
+        if (creditsPanel) creditsPanel.SetActive(false);
+        if (gameOverPanel) gameOverPanel.SetActive(false);
+
+        // Nếu GameplayScene chưa load thì load ADDITIVE
+        var scene = SceneManager.GetSceneByName(gameplaySceneName);
+        if (!scene.isLoaded)
+        {
+            var op = SceneManager.LoadSceneAsync(
+                gameplaySceneName,
+                LoadSceneMode.Additive
+            );
+            while (!op.isDone)
+                yield return null;
+        }
+
+        // Đặt GameplayScene làm active (cho Instantiate, v.v.)
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName(gameplaySceneName));
+
+        // Tiếp tục thời gian
+        Time.timeScale = 1f;
+    }
+
+    // !! SHOW MAIN MENU FROM GAMEPLAY FUNCTION
+    public void ShowMainMenuFromGameplay()
+    {
+        if (mainMenuRoot) mainMenuRoot.SetActive(true);
+        if (creditsPanel) creditsPanel.SetActive(false);
+
+        // Đang chơi dở → chắc chắn Resume được
+        if (resumeButton) resumeButton.SetActive(true);
+
+        if (gameOverPanel) gameOverPanel.SetActive(false);
+
+        RebuildLayoutNow();
+        Time.timeScale = 0f;
+    }
+
     // !! THOÁT GAME MAIN MENU FUNCTION
     public void OnExitClicked()
     {

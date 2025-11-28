@@ -29,6 +29,7 @@ public class PauseMenu : MonoBehaviour
             .onValueChanged
                 .AddListener(OnVolumeChanged);
         // ** 04. SFX VOLUME SEGMENT
+        // Làm cho tiếng SFX lớn hơn tiếng nhạc?
         sfxSlider
             .onValueChanged
                 .AddListener(OnSFXVolumeChanged);
@@ -92,6 +93,7 @@ public class PauseMenu : MonoBehaviour
     public void QuitToMainMenu()
     {
         // ** 02. ENHANCED PAUSE MUSIC SEGMENT
+        // DỪNG NHẠC KHI QUIT VỀ MENU CHÍNH
         // AudioManagerScript
         //     .instance
         //         .PauseMusic();
@@ -107,6 +109,25 @@ public class PauseMenu : MonoBehaviour
             ? PlayerLives.Instance.currentLives 
             : 0;
         SaveSystem.SaveState(curScore, curLives);
+        
+        // ** 25. Giữ lại vị trí trái cây qua các màn chơi SEGMENT
+        // if (pausePanel) pausePanel.SetActive(false);
+        // Time.timeScale = 0f;
+        // if (MainMenuUI.Instance != null)
+        // {
+        //     MainMenuUI.Instance.ShowMainMenuFromGameplay();
+        // }
+        // else
+        // {
+        //     // Fallback nếu chưa setup singleton
+        //     UnityEngine.SceneManagement.SceneManager.LoadScene(
+        //         "MainMenuScene",
+        //         UnityEngine.SceneManagement.LoadSceneMode.Single
+        //     );
+        // }
+        // ** END SEGMENT
+
+        // ** 24. Load Scene sang Main Menu (DEFAULT)
         UnityEngine
             .SceneManagement
                 .SceneManager
@@ -115,5 +136,10 @@ public class PauseMenu : MonoBehaviour
             "MainMenuScene",
             UnityEngine.SceneManagement.LoadSceneMode.Single
         );
+        // ** ENG SEGMENT
+
+        // ** 24. 25. Load Scene sang Main Menu (DEFAULT)
+        // SceneLoader.LoadSceneWithLoading("MainMenuScene");
+        // ** END SEGMENT
     }
 }

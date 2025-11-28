@@ -2,12 +2,13 @@ using UnityEngine;
 
 public class Pineapple : MonoBehaviour
 {
-    [HideInInspector] public float fallSpeed;
+    [SerializeField] public float fallSpeed;
     [SerializeField] float killY = -6f;
+    [SerializeField] float speedMultiplier = 1.0f;
 
     void Update()
     {
-        transform.Translate(Vector2.down * fallSpeed * Time.deltaTime, Space.World);
+        transform.Translate(Vector2.down * fallSpeed * speedMultiplier * Time.deltaTime, Space.World);
         if (transform.position.y < killY)
             PineapplePool.Instance.ReturnPineapple(gameObject);
     }

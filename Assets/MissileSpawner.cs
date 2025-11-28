@@ -60,6 +60,7 @@ public class MissileSpawner : MonoBehaviour
             // A là startInterval, B là minInterval
             
             // ** 08. CẦU GAI SINH 3 QUẢ MỘT LÚC SEGMENT
+            // Làm cho 2 - 3 cầu gai rơi 1 lượt?
             yield return StartCoroutine(SpawnOneWithWarning());
             // yield return StartCoroutine(SpawnWaveWithWarning());
             // ** END SEGMENT
@@ -107,53 +108,54 @@ public class MissileSpawner : MonoBehaviour
 
         // ** 06. DEFAULT TRANSFORM CODE FOR MISSILE SPAWNER SEGMENT
 
-        m.transform.position = new Vector3(x, y, 0f);
-        m.speedY = speedY;
+        // m.transform.position = new Vector3(x, y, 0f);
+        // m.speedY = speedY;
 
-        // chọn hướng xiên: vx ∈ [-maxH, -minH] U [minH, maxH]
-        // giá trị vx = 0 thì vật thể rơi thẳng xuống
-        float vx = (Random.value < 0.5f)
-            ? Random.Range(-maxH, -minH)
-            : Random.Range(minH,  maxH);
-        m.Launch(vx);
+        // // chọn hướng xiên: vx ∈ [-maxH, -minH] U [minH, maxH]
+        // // giá trị vx = 0 thì vật thể rơi thẳng xuống
+        // float vx = (Random.value < 0.5f)
+        //     ? Random.Range(-maxH, -minH)
+        //     : Random.Range(minH,  maxH);
+        // m.Launch(vx);
 
         // ** END SEGMENT
 
         // ** 06. ENHANCED TRANSFORM CODE FOR MISSILE SPAWNER SEGMENT
-        // Vector3 spawnPos = new Vector3(x, y, 0f);
-        // m.transform.position = spawnPos;
-        // m.speedY = speedY;
+        // Cho quả cầu gai hướng về người chơi.
+        Vector3 spawnPos = new Vector3(x, y, 0f);
+        m.transform.position = spawnPos;
+        m.speedY = speedY;
 
-        // float vx = 0f;
+        float vx = 0f;
 
-        // if (playerTransform != null)
-        // {
-        //     // vị trí mục tiêu: chỗ người chơi đứng (có thể dùng player.position.y hoặc y của mặt đất)
-        //     Vector3 targetPos = playerTransform.position;
+        if (playerTransform != null)
+        {
+            // vị trí mục tiêu: chỗ người chơi đứng (có thể dùng player.position.y hoặc y của mặt đất)
+            Vector3 targetPos = playerTransform.position;
 
-        //     // thời gian rơi từ spawnPos.y xuống targetPos.y với tốc độ speedY
-        //     float tFall = (spawnPos.y - targetPos.y) / speedY;
+            // thời gian rơi từ spawnPos.y xuống targetPos.y với tốc độ speedY
+            float tFall = (spawnPos.y - targetPos.y) / speedY;
 
-        //     if (tFall > 0.01f)
-        //     {
-        //         // vx sao cho sau tFall giây x sẽ tới targetPos.x
-        //         vx = (targetPos.x - spawnPos.x) / tFall;
+            if (tFall > 0.01f)
+            {
+                // vx sao cho sau tFall giây x sẽ tới targetPos.x
+                vx = (targetPos.x - spawnPos.x) / tFall;
 
-        //         // giới hạn cho hợp với min/max đã khai báo
-        //         vx = Mathf.Clamp(vx, -maxH, maxH);
-        //         if (Mathf.Abs(vx) < minH)
-        //             vx = minH * Mathf.Sign(vx);   // tránh quá thẳng đứng nếu muốn
-        //     }
-        // }
-        // else
-        // {
-        //     // fallback: nếu chưa có player thì random như cũ
-        //     vx = (Random.value < 0.5f)
-        //         ? Random.Range(-maxH, -minH)
-        //         : Random.Range(minH,  maxH);
-        // }
+                // giới hạn cho hợp với min/max đã khai báo
+                vx = Mathf.Clamp(vx, -maxH, maxH);
+                if (Mathf.Abs(vx) < minH)
+                    vx = minH * Mathf.Sign(vx);   // tránh quá thẳng đứng nếu muốn
+            }
+        }
+        else
+        {
+            // fallback: nếu chưa có player thì random như cũ
+            vx = (Random.value < 0.5f)
+                ? Random.Range(-maxH, -minH)
+                : Random.Range(minH,  maxH);
+        }
 
-        // m.Launch(vx);
+        m.Launch(vx);
 
         // ** END SEGMENT
 

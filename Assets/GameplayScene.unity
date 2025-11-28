@@ -2069,6 +2069,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2c427203c8551744a8b01301fd81b55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cherryPickupClip: {fileID: 8300000, guid: 2535ca5b40f7558448c8e19ed5b01f5a, type: 3}
 --- !u!82 &684382710
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2975,7 +2976,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starPrefab: {fileID: 6793919633102958043, guid: 86a1888f38f256c4fb43734e4332be78, type: 3}
-  initialSize: 10
+  initialSize: 20
 --- !u!4 &1289704243
 Transform:
   m_ObjectHideFlags: 0
@@ -5395,6 +5396,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PINEAPPLE
       objectReference: {fileID: 0}
+    - target: {fileID: 1670660016932998431, guid: a7e5dfc6691ae91448c3c4cad96f4c4d, type: 3}
+      propertyPath: m_TagString
+      value: Star
+      objectReference: {fileID: 0}
     - target: {fileID: 8949233918188051740, guid: a7e5dfc6691ae91448c3c4cad96f4c4d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.837048
@@ -5553,6 +5558,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: CHERRY
       objectReference: {fileID: 0}
+    - target: {fileID: 3620578191410679, guid: 1cbf82a48c478a84c8fb2771ecbc19af, type: 3}
+      propertyPath: m_TagString
+      value: Star
+      objectReference: {fileID: 0}
+    - target: {fileID: 630305590709340835, guid: 1cbf82a48c478a84c8fb2771ecbc19af, type: 3}
+      propertyPath: fallSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 630305590709340835, guid: 1cbf82a48c478a84c8fb2771ecbc19af, type: 3}
+      propertyPath: speedMultiplier
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2145369574946441707, guid: 1cbf82a48c478a84c8fb2771ecbc19af, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.837048
@@ -5659,8 +5676,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8287957531350591747, guid: b0490d2ad046f7f40acd2cff4faccf3d, type: 3}
+      propertyPath: ShapeModule.type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8287957531350591747, guid: b0490d2ad046f7f40acd2cff4faccf3d, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8287957531350591747, guid: b0490d2ad046f7f40acd2cff4faccf3d, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
-      value: 0.1585164
+      value: 0.053242683
       objectReference: {fileID: 0}
     - target: {fileID: 8287957531350591747, guid: b0490d2ad046f7f40acd2cff4faccf3d, type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
@@ -5979,6 +6004,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HEARTPICKUP
       objectReference: {fileID: 0}
+    - target: {fileID: 6611802311528331284, guid: 1a5d3fe9582eea94db2a7af7492ec73b, type: 3}
+      propertyPath: m_TagString
+      value: Star
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6034,6 +6063,10 @@ PrefabInstance:
     - target: {fileID: 2989081788291529030, guid: 823aac9c4013b234ca78ca570733124f, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2989081788291529030, guid: 823aac9c4013b234ca78ca570733124f, type: 3}
+      propertyPath: m_TagString
+      value: Star
       objectReference: {fileID: 0}
     - target: {fileID: 7256689254490531118, guid: 823aac9c4013b234ca78ca570733124f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6158,19 +6191,19 @@ SceneRoots:
   - {fileID: 521538964}
   - {fileID: 853096069}
   - {fileID: 8172764358065622769}
-  - {fileID: 7714350393722472968}
-  - {fileID: 1396197190061147951}
-  - {fileID: 904165521098038347}
-  - {fileID: 8815128134032240554}
-  - {fileID: 8584135362830343872}
-  - {fileID: 2007970645}
-  - {fileID: 793495643}
   - {fileID: 1289704243}
-  - {fileID: 1862954676}
-  - {fileID: 1084928857}
-  - {fileID: 1827756816}
+  - {fileID: 2007970645}
+  - {fileID: 7714350393722472968}
   - {fileID: 1505887523}
+  - {fileID: 1396197190061147951}
+  - {fileID: 1862954676}
+  - {fileID: 904165521098038347}
+  - {fileID: 1084928857}
+  - {fileID: 8815128134032240554}
   - {fileID: 125431557}
+  - {fileID: 8584135362830343872}
+  - {fileID: 793495643}
+  - {fileID: 1827756816}
   - {fileID: 1180881563}
   - {fileID: 7134102042070526198}
   - {fileID: 846422294}

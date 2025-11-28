@@ -7,7 +7,7 @@ public class AudioManagerScript : MonoBehaviour
 
     public AudioSource bgmSource;
 
-    // ** 01. ENHANCED MUSIC VOLUME SEGMENT
+    // ** 01. ENHANCED MUSIC VOLUME SEGMENT - LƯU VOLUME HIỆN TẠI BẰNG PLAYERPREFS
     // private float musicVolume;
     // ** END SEGMENT
 
@@ -24,6 +24,7 @@ public class AudioManagerScript : MonoBehaviour
             DontDestroyOnLoad(gameObject);
 
             // ** 01. ENHANCED MUSIC SEGMENT: Load musicVolume vào game khi Awake() để lát sau Start() tại PauseMenu có thể lấy đúng giá trị
+            // **  - LƯU VOLUME HIỆN TẠI BẰNG PLAYERPREFS
             // musicVolume = SaveSystem.LoadVolume();
             // instance.SetMusicVolume(musicVolume);
             // ** END SEGMENT
@@ -39,6 +40,7 @@ public class AudioManagerScript : MonoBehaviour
     {
 
         // ** 01. ENDHANCED MUSIC VOLUME SEGMENT
+        // ** - LƯU VOLUME HIỆN TẠI BẰNG PLAYERPREFS
         // musicVolume = SaveSystem.LoadVolume();
         // ** END SEGMENT
 
@@ -46,7 +48,8 @@ public class AudioManagerScript : MonoBehaviour
         {
             bgmSource.loop = true;
 
-            // ** 01. DEFAULT MUSIC SEGMENT
+            // ** 01. DEFAULT MUSIC SEGMENT  
+            // ** - LƯU VOLUME HIỆN TẠI BẰNG PLAYERPREFS
             bgmSource.volume = musicVolume;
             // ** END SEGMENT
 
@@ -66,6 +69,7 @@ public class AudioManagerScript : MonoBehaviour
             bgmSource.volume = musicVolume;
 
             // ** 01. ENHANCED MUSIC SEGMENT
+            // **  - LƯU VOLUME HIỆN TẠI BẰNG PLAYERPREFS
             // LƯU LẠI GIÁ TRỊ VÀO PLAYERPREFS
             // PlayerPrefs.SetFloat("Volume", Mathf.Max(0, musicVolume));
             // PlayerPrefs.Save();
@@ -77,7 +81,7 @@ public class AudioManagerScript : MonoBehaviour
     {
         return musicVolume;
     }
-    // !! 02. DỪNG NHẠC
+    // !! 02. DỪNG NHẠC Làm cho nhạc dừng khi ra Menu chính?
     public void PauseMusic()
     {
         bgmSource.Pause();

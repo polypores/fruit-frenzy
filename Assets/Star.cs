@@ -3,7 +3,7 @@ using UnityEngine;
 public class Star : MonoBehaviour
 {
 
-    [HideInInspector] public float fallSpeed;
+    [SerializeField] public float fallSpeed;
 
     [SerializeField] float killY = -6f;
 
