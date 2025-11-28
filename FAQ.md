@@ -42,3 +42,18 @@ Chỉnh giá trị hàm trong code.
 Trong code. ScoreCanvas nhớ để Screen Space – Overlay.
 20. [XONG] Thay icon cảnh báo khi có cầu gai?
 Nhớ đừng disable prefab DangerNotification và kéo DangerNotification vào Warn Icon Prefab ở Missile Spawner.
+21. [XONG] Thay đổi Logo Unity loading đầu game sang Logo SGU?
+Vào Project settings -> Player -> Splash Image. Kéo logo SAIGON UNI có sẵn trogn Asset vào Logos list.
+22. [XONG] Xóa splash screen Made with Unity ở đầu game?
+Chọn Project settings -> Player -> Splash Image -> Show splash screen.
+23. [XONG] Chỉnh Fx dính răng cưa cho trông sinh động 1 chút
+Chỉnh ExplosionFX rồi kéo vào.
+24. [XONG] Thêm Loading Scene. 
+Trong code. Nhớ thêm LoadingSceen lúc Build.
+25. [XONG] Resume lại trò chơi và giữ các vị trí trái cây trên màn hình.
+Trong code. Làm kĩ, dễ sai.
+27. [XONG] Cho trái cây rơi nhanh lên.
+Không tăng fallSpeed cherry trong prefabs. Thay speedMultiplier.
+28. [XONG] Ăn trúng bom thì thua luôn đc k?
+Chỉnh thành game 1 mạng thay vì 5 mạng trong GameManager -> Player Lives component.
+Bỏ cộng điểm khi ăn tim.
